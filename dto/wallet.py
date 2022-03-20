@@ -31,6 +31,9 @@ class CurrencyWallet:
         profit = count * (current_price - self.avg_price)
         return profit
 
+    def __repr__(self):
+        return f"{self.count} {self.name} at average price {self.avg_price} per unit"
+
 
 class Wallet:
     def __init__(self):
@@ -74,6 +77,12 @@ class Wallet:
 
         currency_wallet: CurrencyWallet = self.currencies[currency]
         currency_wallet.buy(count, price, last_update)
+
+    def get_currency_count(self, currency: str):
+        return self.currencies[currency].count
+
+    def get_currency_avg_price(self, currency: str):
+        return self.currencies[currency].avg_price
 
     def __repr__(self):
         string_builder = ""
