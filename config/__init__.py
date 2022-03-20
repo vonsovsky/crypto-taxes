@@ -1,0 +1,1 @@
+REFERENCE_FIAT = "CZK"
