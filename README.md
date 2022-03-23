@@ -16,8 +16,9 @@ Goes through all transactions made in a given year on centralized exchanges and 
 
 ### TODO
 
-  * Make adapters for more exchanges (at least those I used, obviously, to finish my task)
+  * Test other pairs than USDT/SOMETHING. Some exchanges export only prices calculated to USD.
   * Resolve problem with selling some crypto money in the following year from buy
   * Attribute exchange fees (if not accounted in order history)
+  * Attribute network fees when sending from exchange to exchange
   * More precise API with prices (using CoinGecko now, which has resolution of a few hours)
   * Send a letter to the tax office using a lot of colors, clowns, unicorns and statement of how much I hate them
