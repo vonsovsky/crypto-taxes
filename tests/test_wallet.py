@@ -39,13 +39,25 @@ def test_wallet__czkt_case1():
 
     wallet = Wallet()
     wallet.buy("CZKT", 4000, 1)
-    profit = wallet.convert("CZKT", "XRP", 4000, 1, 20)
+    profit = wallet.convert(
+        currency_from="CZKT",
+        currency_to="XRP",
+        count_from=4000,
+        currency_from_current_price=1,
+        currency_to_current_price=20
+    )
 
     assert wallet.currencies["XRP"].count == 200
     assert wallet.currencies["CZKT"].count == 0
     assert profit == 0
 
-    profit = wallet.convert("XRP", "CZKT", 200, 22, 1)
+    profit = wallet.convert(
+        currency_from="XRP",
+        currency_to="CZKT",
+        count_from=200,
+        currency_from_current_price=22,
+        currency_to_current_price=1
+    )
 
     assert wallet.currencies["XRP"].count == 0
     assert wallet.currencies["CZKT"].count == 4400
@@ -60,13 +72,25 @@ def test_wallet__czkt_case2():
 
     wallet = Wallet()
     wallet.buy("CZKT", 4000, 1)
-    profit = wallet.convert("CZKT", "XRP", 4000, 1, 20)
+    profit = wallet.convert(
+        currency_from="CZKT",
+        currency_to="XRP",
+        count_from=4000,
+        currency_from_current_price=1,
+        currency_to_current_price=20
+    )
 
     assert wallet.currencies["XRP"].count == 200
     assert wallet.currencies["CZKT"].count == 0
     assert profit == 0
 
-    profit = wallet.convert("XRP", "CZKT", 150, 22, 1)
+    profit = wallet.convert(
+        currency_from="XRP",
+        currency_to="CZKT",
+        count_from=150,
+        currency_from_current_price=22,
+        currency_to_current_price=1
+    )
 
     assert wallet.currencies["XRP"].count == 50
     assert wallet.currencies["CZKT"].count == 3300
@@ -83,19 +107,37 @@ def test_wallet__xrp_eth():
 
     wallet = Wallet()
     wallet.buy("ETH", 3, 4000)
-    profit = wallet.convert("ETH", "XRP", 1.5, 4000, 0.5)
+    profit = wallet.convert(
+        currency_from="ETH",
+        currency_to="XRP",
+        count_from=1.5,
+        currency_from_current_price=4000,
+        currency_to_current_price=0.5
+    )
 
     assert wallet.currencies["ETH"].count == 1.5
     assert wallet.currencies["XRP"].count == 12000
     assert profit == 0
 
-    profit = wallet.convert("ETH", "CZK", 1.5, 2000, 1)
+    profit = wallet.convert(
+        currency_from="ETH",
+        currency_to="CZK",
+        count_from=1.5,
+        currency_from_current_price=2000,
+        currency_to_current_price=1
+    )
 
     assert wallet.currencies["ETH"].count == 0
     assert wallet.currencies["CZK"].count == 3000
     assert profit == -3000
 
-    profit = wallet.convert("XRP", "CZK", 12000, 2, 1)
+    profit = wallet.convert(
+        currency_from="XRP",
+        currency_to="CZK",
+        count_from=12000,
+        currency_from_current_price=2,
+        currency_to_current_price=1
+    )
 
     assert wallet.currencies["XRP"].count == 0
     assert wallet.currencies["CZK"].count == 3000 + 24000
