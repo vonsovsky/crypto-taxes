@@ -81,6 +81,7 @@ orders.sort(key=lambda x: x.filled)
 wallet.buy("XRP", 800, 7.96)
 
 # or try to add it by api for prices
+# if still not sure, you can estimate prices by using api.get_avg_price_over_time()
 price = api.get_currency_price_at("ETH", iso8601.parse_date("2017-12-21 14:49:43"))
 print(price)
 wallet.buy("ETH", 0.5, price)
