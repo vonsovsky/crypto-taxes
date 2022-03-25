@@ -9,15 +9,17 @@ Goes through all transactions made in a given year on centralized exchanges and 
 
 ### Steps
 
+  * Input your wallet before the beginning of given orders
   * Gathers all transactions from all centralized exchanges I used
-  * Sorts them by date, filters out those outside of a given year 
+  * Sorts them by date, might filter out those outside of a given year
   * Applies one by one, to keep counts and average prices of given coins
   * Sums up profits from exchanges
 
 ### TODO
 
-  * Make adapters for more exchanges (at least those I used, obviously, to finish my task)
-  * Resolve problem with selling some crypto money in the following year from buy
+  * Test other pairs than USDT/SOMETHING. Some exchanges export only prices calculated to USD.
+    * Update - Poloniex has been tested successfully
   * Attribute exchange fees (if not accounted in order history)
+  * Attribute network fees when sending from exchange to exchange
   * More precise API with prices (using CoinGecko now, which has resolution of a few hours)
   * Send a letter to the tax office using a lot of colors, clowns, unicorns and statement of how much I hate them

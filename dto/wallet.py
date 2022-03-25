@@ -25,7 +25,7 @@ class CurrencyWallet:
 
         self.count -= count
 
-        if self.count < 0.0:
+        if self.count < -0.05:
             raise ValueError(f"Cannot go negative on {self.name}: {self.count}")
 
         profit = count * (current_price - self.avg_price)
@@ -45,7 +45,8 @@ class Wallet:
             currency_to: str,
             count_from: float,
             currency_from_current_price: float,
-            currency_to_current_price: float
+            count_to: Optional[float] = None,
+            currency_to_current_price: Optional[float] = None
     ):
         """
         Converts two currencies - first one is deducted from the wallet and its finances are used to buy the second one
@@ -53,6 +54,7 @@ class Wallet:
         :param currency_to: Currency to be bought
         :param count_from: How much currency to be spent
         :param currency_from_current_price: Currency to be spent actual price, will be used to calculate taxable profit
+        :param count_to: How much currency to be bought
         :param currency_to_current_price: Currency to be bought actual price, will be used to count how much to buy
         :return: taxable profit from the conversion
         """
@@ -66,7 +68,12 @@ class Wallet:
 
         sold_for = count_from * currency_from_current_price
         profit = currency_wallet1.spend(count_from, currency_from_current_price)
-        count_to = sold_for / currency_to_current_price
+
+        if count_to is None:
+            count_to = sold_for / currency_to_current_price
+        if currency_to_current_price is None:
+            currency_to_current_price = sold_for / count_to
+
         currency_wallet2.buy(count_to, currency_to_current_price)
 
         return profit
