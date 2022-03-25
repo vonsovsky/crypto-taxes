@@ -1,18 +1,21 @@
 import csv
-import pickle
 
 import iso8601
 
 from api import CryptoAPI
 from dto import Order
+from .reader import Reader
 
-PICKLE_FILENAME = "coinmate.pkl"
 
-
-class CoinmateReader:
+class CoinmateReader(Reader):
+    PICKLE_FILENAME = "coinmate.pkl"
+    EXCHANGE_NAME = "Coinmate"
 
     def __init__(self):
         self.api = CryptoAPI()
+
+    def get_pickle_filename(self):
+        return self.PICKLE_FILENAME
 
     def read_file(self, filename):
         fr = open(filename, "r")
@@ -42,19 +45,12 @@ class CoinmateReader:
                 raise ValueError(dt_row["TYPE"])
 
             records.append(Order(
+                filled=filled,
                 currency_from=currency_from,
                 currency_to=currency_to,
                 count=count,
                 unit_price=unit_price,
-                filled=filled
+                exchange_name=self.EXCHANGE_NAME
             ))
 
         return records
-
-    def save(self, records):
-        with open(PICKLE_FILENAME, "wb") as fw:
-            pickle.dump(records, fw)
-
-    def load(self):
-        with open(PICKLE_FILENAME, "rb") as fr:
-            return pickle.load(fr)
